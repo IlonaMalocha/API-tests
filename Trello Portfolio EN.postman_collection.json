@@ -1,0 +1,1404 @@
+{
+	"info": {
+		"_postman_id": "7f86da2c-e1ee-4699-a878-76dbddee6e3f",
+		"name": "Trello Portfolio EN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27188465",
+		"_collection_link": "https://testteam-1526.postman.co/workspace/Ilona-Ma%25C5%2582ocha~43a2bf92-193c-44f4-80a9-0d13711258a6/collection/27188465-7f86da2c-e1ee-4699-a878-76dbddee6e3f?action=share&source=collection_link&creator=27188465"
+	},
+	"item": [
+		{
+			"name": "Create new board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify board name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"boardName\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"boardID\", resBody.id);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/boards/?name={{boardName}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{boardName}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show all boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify type of name\", function() {\r",
+							"    resBody.map(item => {\r",
+							"        pm.expect(item.name).to.be.a(\"string\");\r",
+							"    })\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/members/me/boards?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"members",
+						"me",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new list 01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify list name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"listName01\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"listID01\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardID}}/lists?name={{listName01}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{listName01}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new list 02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify list name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"listName02\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"listID02\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardID}}/lists?name={{listName02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{listName02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new list 03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify list name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"listName03\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"listID03\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardID}}/lists?name={{listName03}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{listName03}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update list title (01)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"const expectedName = \"Updated List Title (01)\";\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify updated list name (01)\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(expectedName);\r",
+							"})\r",
+							"\r",
+							"if (resBody.name === expectedName) {\r",
+							"    pm.collectionVariables.set(\"listName01\", resBody.name);\r",
+							"    console.log(\"Variable ListName01 has been updated\", resBody.name);\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"Updated List Title (01)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{listID01}}?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{listID01}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive created list (03)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if the list has been archived\", function() {\r",
+							"    pm.expect(resBody.closed).to.eql(true);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{listID03}}/closed?key={{APIKey}}&token={{APIToken}}&value=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{listID03}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show all lists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify closed value\", function() {\r",
+							"    resBody.map(item => {\r",
+							"        pm.expect(item.closed).to.eql(false);\r",
+							"    })\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardID}}/lists?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new card 01",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify value of id list and id board\", function() {\r",
+							"    pm.expect(resBody.idList).to.eql(pm.collectionVariables.get(\"listID02\"));\r",
+							"    pm.expect(resBody.idBoard).to.eql(pm.collectionVariables.get(\"boardID\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify card name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"cardName01\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardID01\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"{{cardName01}}\",\r\n\"desc\": \"due to practice creating new card\",\r\n\"pos\": \"top\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?idList={{listID02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{listID02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new card 02",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify card name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"cardName02\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardID02\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"{{cardName02}}\",\r\n\"desc\": \"due to practice creating new card\",\r\n\"pos\": \"top\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?idList={{listID02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{listID02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new card 03",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify card name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"cardName03\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardID03\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"{{cardName03}}\",\r\n\"desc\": \"due to practice creating new card\",\r\n\"pos\": \"top\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?idList={{listID02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{listID02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new card 04",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify card name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"cardName04\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardID04\", resBody.id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"{{cardName04}}\",\r\n\"desc\": \"due to practice creating new card\",\r\n\"pos\": \"top\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?idList={{listID02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{listID02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new card 05",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify card name\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"cardName05\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"cardID05\", resBody.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"{{cardName05}}\",\r\n\"desc\": \"due to practice creating new card\",\r\n\"pos\": \"top\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards?idList={{listID02}}&key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList",
+							"value": "{{listID02}}"
+						},
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Cards in a List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify value of board ID and list ID\", function() {\r",
+							"    resBody.map(item => {\r",
+							"        pm.expect(item.idBoard).to.eql(pm.collectionVariables.get(\"boardID\"));\r",
+							"        pm.expect(item.idList).to.eql(pm.collectionVariables.get(\"listID02\"));\r",
+							"    })\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify shortlink property and its type\", function() {\r",
+							"    resBody.map(item => {\r",
+							"        pm.expect(item).to.have.property(\"shortLink\");\r",
+							"        pm.expect(item.shortLink).to.be.a(\"string\");  \r",
+							"    })\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/lists/{{listID02}}/cards?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"lists",
+						"{{listID02}}",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update card title (05)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let  resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify updated card name (05)\", function() {\r",
+							"    pm.expect(resBody.name).to.eql(pm.collectionVariables.get(\"updatedCardName\"));\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify updated card description (05)\", function() {\r",
+							"    pm.expect(resBody.desc).to.eql(pm.collectionVariables.get(\"updatedCardDesc\"));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID05}}?key={{APIKey}}&token={{APIToken}}&name={{updatedCardName}}&desc={{updatedCardDesc}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID05}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						},
+						{
+							"key": "name",
+							"value": "{{updatedCardName}}"
+						},
+						{
+							"key": "desc",
+							"value": "{{updatedCardDesc}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created card (01)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID01}}?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID01}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get deleted card (01)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify if card does not exist after deletion\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID01}}?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID01}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive created card (02)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Should verify status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if the card has been archived (02)\", function() {\r",
+							"    pm.expect(resBody.closed).to.eql(true);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID02}}/closed?key={{APIKey}}&token={{APIToken}}&value=true",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID02}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move the card (03) to another list (01)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let resBody = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Verify the status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify the list ID\", function() {\r",
+							"    pm.expect(resBody.idList).to.eql(pm.collectionVariables.get(\"listID01\"));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idList\": \"{{listID01}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID03}}?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID03}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create checklist on the card (04)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"name\": \"Test checklist\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cards/{{cardID04}}/checklists?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cards",
+						"{{cardID04}}",
+						"checklists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete created board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify the status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Should verify if response time is less than 700ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/boards/{{boardID}}?key={{APIKey}}&token={{APIToken}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"boards",
+						"{{boardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{APIKey}}"
+						},
+						{
+							"key": "token",
+							"value": "{{APIToken}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.trello.com/1",
+			"type": "string"
+		},
+		{
+			"key": "boardName",
+			"value": "New board-API Testing",
+			"type": "string"
+		},
+		{
+			"key": "boardID",
+			"value": ""
+		},
+		{
+			"key": "listName01",
+			"value": "New List 01",
+			"type": "string"
+		},
+		{
+			"key": "listID01",
+			"value": ""
+		},
+		{
+			"key": "listName02",
+			"value": "New List 02",
+			"type": "string"
+		},
+		{
+			"key": "listID02",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "listName03",
+			"value": "New List 03",
+			"type": "string"
+		},
+		{
+			"key": "listID03",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "cardID01",
+			"value": ""
+		},
+		{
+			"key": "cardID02",
+			"value": ""
+		},
+		{
+			"key": "cardName01",
+			"value": ""
+		},
+		{
+			"key": "cardName02",
+			"value": ""
+		},
+		{
+			"key": "cardName03",
+			"value": "New Card 03",
+			"type": "string"
+		},
+		{
+			"key": "cardName04",
+			"value": "New Card 04",
+			"type": "string"
+		},
+		{
+			"key": "cardName05",
+			"value": "New Card 05",
+			"type": "string"
+		},
+		{
+			"key": "cardID03",
+			"value": ""
+		},
+		{
+			"key": "cardID04",
+			"value": ""
+		},
+		{
+			"key": "cardID05",
+			"value": ""
+		},
+		{
+			"key": "updatedCardName",
+			"value": "Nie działa system logowania",
+			"type": "string"
+		},
+		{
+			"key": "updatedCardDesc",
+			"value": "zgłoszenie do działu IT",
+			"type": "string"
+		}
+	]
+}
